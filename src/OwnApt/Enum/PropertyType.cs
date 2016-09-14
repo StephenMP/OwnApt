@@ -5,6 +5,7 @@
         SingleFamilyHome,
         Townhome,
         Duplex,
-        Fourplex
+        Fourplex,
+        Apartment
     }
 }
