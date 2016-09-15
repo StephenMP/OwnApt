@@ -8,29 +8,19 @@ namespace OwnApt.Common.Dto
     {
         #region Public Methods
 
-        public static bool operator ==(Equatable a, Equatable b)
+        public override bool Equals(object obj)
         {
-            if (object.ReferenceEquals(a, b))
+            if (object.ReferenceEquals(this, obj))
             {
                 return true;
             }
 
-            if (((object)a == null) || ((object)b == null))
+            if ((this == null) || (obj == null))
             {
                 return false;
             }
 
-            return a.GetHashCode() == b.GetHashCode();
-        }
-
-        public static bool operator !=(Equatable a, Equatable b)
-        {
-            return !(a == b);
-        }
-
-        public override bool Equals(object obj)
-        {
-            return this == (Equatable)obj;
+            return this.GetHashCode() == obj.GetHashCode();
         }
 
         public override int GetHashCode()

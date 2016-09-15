@@ -45,8 +45,6 @@ namespace OwnApt.Tests.Component.Dto
             TestObject orig = null;
             TestObject copy = null;
             Assert.Equal(orig, copy);
-            Assert.True(orig == copy);
-            Assert.False(orig != copy);
         }
 
         [Fact]
@@ -75,8 +73,6 @@ namespace OwnApt.Tests.Component.Dto
             TestObject copy = null;
 
             Assert.NotEqual(orig, copy);
-            Assert.False(orig == copy);
-            Assert.True(orig != copy);
         }
 
         [Fact]
@@ -158,8 +154,6 @@ namespace OwnApt.Tests.Component.Dto
             Assert.Equal(orig, copy);
             Assert.Equal(orig.GetHashCode(), copy.GetHashCode());
             Assert.True(orig.Equals(copy));
-            Assert.True(orig == copy);
-            Assert.False(orig != copy);
         }
 
         public static void AreNotEqual(Equatable orig, Equatable copy)
@@ -167,8 +161,6 @@ namespace OwnApt.Tests.Component.Dto
             Assert.NotEqual(orig, copy);
             Assert.NotEqual(orig.GetHashCode(), copy.GetHashCode());
             Assert.False(orig.Equals(copy));
-            Assert.False(orig == copy);
-            Assert.True(orig != copy);
         }
 
         internal class TestObject : Equatable
