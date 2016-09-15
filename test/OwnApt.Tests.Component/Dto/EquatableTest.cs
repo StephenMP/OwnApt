@@ -2,36 +2,14 @@
 using OwnApt.Common.Extension;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace OwnApt.Tests.Component.Dto
 {
-    internal class TestSubObject : Equatable<TestSubObject>
-    {
-        public string[] Strings { get; set; }
-
-        public override int GetHashCode()
-        {
-            return this.Strings.GetHashCodeSafe();
-        }
-    }
-
-    internal class TestObject : Equatable<TestObject>
-    {
-        public List<TestSubObject> SubObjects { get; set; }
-        public int Value { get; set; }
-
-        public override int GetHashCode()
-        {
-            return this.SubObjects.GetHashCodeSafe()
-                ^ this.Value.GetHashCodeSafe();
-        }
-    }
-
     public class EquatableTest
     {
+        #region Public Methods
+
         [Fact]
         public void CanEquate()
         {
@@ -48,7 +26,7 @@ namespace OwnApt.Tests.Component.Dto
                 new TestSubObject
                 {
                     Strings = new string[] { RandomString(), RandomString(), RandomString() }
-                },
+                }
             };
 
             var value = new Random().Next();
@@ -59,6 +37,7 @@ namespace OwnApt.Tests.Component.Dto
             Assert.Equal(orig, copy);
         }
 
+        [Fact]
         public void CannotEquatWhenObjectsAreNotEqual()
         {
             var orig = new TestObject
@@ -76,7 +55,7 @@ namespace OwnApt.Tests.Component.Dto
                     new TestSubObject
                     {
                         Strings = new string[] { RandomString(), RandomString(), RandomString(), "S" }
-                    },
+                    }
                 },
                 Value = new Random().Next()
             };
@@ -96,7 +75,7 @@ namespace OwnApt.Tests.Component.Dto
                     new TestSubObject
                     {
                         Strings = new string[] { RandomString(), RandomString(), RandomString(), "A" }
-                    },
+                    }
                 },
                 Value = new Random().Next()
             };
@@ -104,9 +83,53 @@ namespace OwnApt.Tests.Component.Dto
             Assert.NotEqual(orig, copy);
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private static string RandomString()
         {
             return Guid.NewGuid().ToString();
         }
+
+        #endregion Private Methods
+    }
+
+    internal class TestObject : Equatable<TestObject>
+    {
+        #region Public Properties
+
+        public List<TestSubObject> SubObjects { get; set; }
+        public int Value { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public override int GetHashCode()
+        {
+            return this.SubObjects.GetHashCodeSafe()
+                ^ this.Value.GetHashCodeSafe();
+        }
+
+        #endregion Public Methods
+    }
+
+    internal class TestSubObject : Equatable<TestSubObject>
+    {
+        #region Public Properties
+
+        public string[] Strings { get; set; }
+
+        #endregion Public Properties
+
+        #region Public Methods
+
+        public override int GetHashCode()
+        {
+            return this.Strings.GetHashCodeSafe();
+        }
+
+        #endregion Public Methods
     }
 }
