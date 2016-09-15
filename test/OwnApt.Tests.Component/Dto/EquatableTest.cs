@@ -2,6 +2,8 @@
 using OwnApt.Common.Extension;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace OwnApt.Tests.Component.Dto
@@ -34,7 +36,24 @@ namespace OwnApt.Tests.Component.Dto
             var orig = new TestObject { SubObjects = testSubObjects, Value = value };
             var copy = new TestObject { SubObjects = testSubObjects, Value = value };
 
-            Assert.Equal(orig, copy);
+            AreEqual(orig, copy);
+        }
+
+        [Fact]
+        public void CanEquateReflectively()
+        {
+            var classTypes = this.GetType()
+                                 .GetTypeInfo()
+                                 .Assembly
+                                 .GetTypes()
+                                 .Where(t => t != typeof(Equatable) && typeof(Equatable).IsAssignableFrom(t));
+
+            foreach (var type in classTypes)
+            {
+                var orig = Activator.CreateInstance(type) as Equatable;
+                var copy = Activator.CreateInstance(type) as Equatable;
+                AreEqual(orig, copy);
+            }
         }
 
         [Fact]
@@ -80,7 +99,7 @@ namespace OwnApt.Tests.Component.Dto
                 Value = new Random().Next()
             };
 
-            Assert.NotEqual(orig, copy);
+            AreNotEqual(orig, copy);
         }
 
         #endregion Public Methods
@@ -93,43 +112,42 @@ namespace OwnApt.Tests.Component.Dto
         }
 
         #endregion Private Methods
-    }
 
-    internal class TestObject : Equatable<TestObject>
-    {
-        #region Public Properties
-
-        public List<TestSubObject> SubObjects { get; set; }
-        public int Value { get; set; }
-
-        #endregion Public Properties
-
-        #region Public Methods
-
-        public override int GetHashCode()
+        public static void AreEqual(Equatable orig, Equatable copy)
         {
-            return this.SubObjects.GetHashCodeSafe()
-                ^ this.Value.GetHashCodeSafe();
+            Assert.Equal(orig, copy);
+            Assert.Equal(orig.GetHashCode(), copy.GetHashCode());
+            Assert.True(orig.Equals(copy));
+            Assert.True(orig == copy);
+            Assert.False(orig != copy);
         }
 
-        #endregion Public Methods
-    }
-
-    internal class TestSubObject : Equatable<TestSubObject>
-    {
-        #region Public Properties
-
-        public string[] Strings { get; set; }
-
-        #endregion Public Properties
-
-        #region Public Methods
-
-        public override int GetHashCode()
+        public static void AreNotEqual(Equatable orig, Equatable copy)
         {
-            return this.Strings.GetHashCodeSafe();
+            Assert.NotEqual(orig, copy);
+            Assert.NotEqual(orig.GetHashCode(), copy.GetHashCode());
+            Assert.False(orig.Equals(copy));
+            Assert.False(orig == copy);
+            Assert.True(orig != copy);
         }
 
-        #endregion Public Methods
+        internal class TestObject : Equatable
+        {
+            #region Public Properties
+
+            public List<TestSubObject> SubObjects { get; set; }
+            public int Value { get; set; }
+
+            #endregion Public Properties
+        }
+
+        internal class TestSubObject : Equatable
+        {
+            #region Public Properties
+
+            public string[] Strings { get; set; }
+
+            #endregion Public Properties
+        }
     }
 }

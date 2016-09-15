@@ -12,6 +12,11 @@ namespace OwnApt.Common.Extension
             return obj == null ? 0 : obj.GetHashCode();
         }
 
+        public static int GetHashCodeSafe(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str) ? 0 : str.GetHashCode();
+        }
+
         public static int GetHashCodeSafe<T>(this IEnumerable<T> enumerable)
         {
             if (enumerable == null || enumerable.Count() == 0)
