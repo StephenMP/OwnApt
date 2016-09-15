@@ -10,7 +10,17 @@ namespace OwnApt.Common.Dto
 
         public static bool operator ==(Equatable a, Equatable b)
         {
-            return a.Equals(b);
+            if (object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
+
+            return a.GetHashCode() == b.GetHashCode();
         }
 
         public static bool operator !=(Equatable a, Equatable b)
@@ -18,10 +28,9 @@ namespace OwnApt.Common.Dto
             return !(a == b);
         }
 
-
         public override bool Equals(object obj)
         {
-            return this.GetHashCode() == obj.GetHashCode();
+            return this == (Equatable)obj;
         }
 
         public override int GetHashCode()

@@ -40,6 +40,46 @@ namespace OwnApt.Tests.Component.Dto
         }
 
         [Fact]
+        public void NullEquals()
+        {
+            TestObject orig = null;
+            TestObject copy = null;
+            Assert.Equal(orig, copy);
+            Assert.True(orig == copy);
+            Assert.False(orig != copy);
+        }
+
+        [Fact]
+        public void NullNotEquals()
+        {
+            var orig = new TestObject
+            {
+                SubObjects = new List<TestSubObject>
+                {
+                    new TestSubObject
+                    {
+                        Strings = new string[] { RandomString(), RandomString(), RandomString(), "S" }
+                    },
+                    new TestSubObject
+                    {
+                        Strings = new string[] { RandomString(), RandomString(), RandomString(), "S" }
+                    },
+                    new TestSubObject
+                    {
+                        Strings = new string[] { RandomString(), RandomString(), RandomString(), "S" }
+                    }
+                },
+                Value = new Random().Next()
+            };
+
+            TestObject copy = null;
+
+            Assert.NotEqual(orig, copy);
+            Assert.False(orig == copy);
+            Assert.True(orig != copy);
+        }
+
+        [Fact]
         public void CanEquateReflectively()
         {
             var classTypes = this.GetType()
