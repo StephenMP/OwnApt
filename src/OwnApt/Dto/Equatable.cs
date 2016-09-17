@@ -1,5 +1,4 @@
 ﻿using OwnApt.Common.Extension;
-using System;
 using System.Reflection;
 
 namespace OwnApt.Common.Dto
@@ -27,7 +26,7 @@ namespace OwnApt.Common.Dto
         {
             var hash = 0;
 
-            foreach(var property in this.GetType().GetProperties())
+            foreach (var property in this.GetType().GetProperties())
             {
                 hash ^= property.GetValue(this).GetHashCodeSafe();
             }

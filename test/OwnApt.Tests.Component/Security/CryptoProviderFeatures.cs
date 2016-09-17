@@ -4,13 +4,13 @@ namespace OwnApt.Tests.Component
 {
     public class CryptoProviderFeatures
     {
-        #region Fields
+        #region Public Fields
 
         public CryptoProviderSteps steps = new CryptoProviderSteps();
 
-        #endregion Fields
+        #endregion Public Fields
 
-        #region Methods
+        #region Public Methods
 
         [Fact]
         public void CanDecrypt()
@@ -30,6 +30,6 @@ namespace OwnApt.Tests.Component
             this.steps.ThenICanVerifyIEncryptData();
         }
 
-        #endregion Methods
+        #endregion Public Methods
     }
 }

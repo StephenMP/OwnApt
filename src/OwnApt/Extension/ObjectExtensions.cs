@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace OwnApt.Common.Extension
 {
@@ -10,22 +8,23 @@ namespace OwnApt.Common.Extension
 
         public static int GetHashCodeSafe(this object obj)
         {
-            if (obj == null) {
+            if (obj == null)
+            {
                 return 0;
             }
-            
+
             if (obj is string)
             {
                 var str = obj as string;
                 return GetHashCodeSafe(str);
             }
 
-            if(obj is IEnumerable)
+            if (obj is IEnumerable)
             {
                 var enumerable = obj as IEnumerable;
                 return GetHashCodeSafe(enumerable);
             }
-            
+
             return obj.GetHashCode();
         }
 

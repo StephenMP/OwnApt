@@ -1,7 +1,5 @@
 ﻿using OwnApt.Common.Dto;
-using OwnApt.Common.Extension;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Xunit;
@@ -10,12 +8,22 @@ namespace OwnApt.Tests.Component.Dto
 {
     public class EquatableFeatures
     {
+        #region Private Fields
+
         private readonly EquatableSteps steps;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         public EquatableFeatures()
         {
             this.steps = new EquatableSteps();
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [Fact]
         public void CanEquateEqualObjects()
@@ -24,21 +32,6 @@ namespace OwnApt.Tests.Component.Dto
             this.steps.GivenIHaveATestObject(0, 1, this.steps.testSubObject);
             this.steps.GivenIHaveATestObject(1, 1, this.steps.testSubObject);
             this.steps.ThenICanVerifyTheObjectsAreEqual();
-        }
-
-        [Fact]
-        public void CanEquateWhenBothAreNull()
-        {
-            this.steps.GivenIHaveNullTestObjects();
-            this.steps.ThenICanVerifyTheObjectsAreEqual();
-        }
-
-        [Fact]
-        public void CannotEquateWhenOnlyOneIsNull()
-        {
-            this.steps.GivenIHaveNullTestObjects();
-            this.steps.GivenIHaveATestObject(0, 1);
-            this.steps.ThenICanVerifyTheObjectsAreNotEqual();
         }
 
         [Fact]
@@ -56,6 +49,13 @@ namespace OwnApt.Tests.Component.Dto
         }
 
         [Fact]
+        public void CanEquateWhenBothAreNull()
+        {
+            this.steps.GivenIHaveNullTestObjects();
+            this.steps.ThenICanVerifyTheObjectsAreEqual();
+        }
+
+        [Fact]
         public void CannotEquateUnequalObjects()
         {
             this.steps.GivenIHaveATestSubObject();
@@ -63,5 +63,15 @@ namespace OwnApt.Tests.Component.Dto
             this.steps.GivenIHaveATestObject(1, 2);
             this.steps.ThenICanVerifyTheObjectsAreNotEqual();
         }
+
+        [Fact]
+        public void CannotEquateWhenOnlyOneIsNull()
+        {
+            this.steps.GivenIHaveNullTestObjects();
+            this.steps.GivenIHaveATestObject(0, 1);
+            this.steps.ThenICanVerifyTheObjectsAreNotEqual();
+        }
+
+        #endregion Public Methods
     }
 }

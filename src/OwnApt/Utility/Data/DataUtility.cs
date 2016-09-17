@@ -1,16 +1,16 @@
-﻿using OwnApt.Common.Extension;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace OwnApt.Common.Utility.Data
 {
     public static class DataUtility
     {
+        #region Public Methods
+
         public static string GenerateId()
         {
             return Guid.NewGuid().ToString("N");
         }
+
+        #endregion Public Methods
     }
 }

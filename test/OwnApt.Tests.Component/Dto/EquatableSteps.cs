@@ -1,57 +1,25 @@
 ﻿using OwnApt.Common.Dto;
-using OwnApt.Common.Extension;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace OwnApt.Tests.Component.Dto
 {
     public class EquatableSteps
     {
-        private readonly TestObject[] testObjects = { null, null };
+        #region Internal Fields
+
         internal TestSubObject testSubObject;
+
+        #endregion Internal Fields
+
+        #region Private Fields
+
+        private readonly TestObject[] testObjects = { null, null };
+
+        #endregion Private Fields
+
         #region Public Methods
-
-        [Fact]
-        internal void ThenICanVerifyTheObjectsAreEqual()
-        {
-            Assert.Equal(this.testObjects[0], this.testObjects[1]);
-        }
-
-        internal void GivenIHaveATestSubObject()
-        {
-            this.testSubObject = new TestSubObject(true);
-        }
-
-        internal void GivenIHaveATestObject(int index, int value, TestSubObject subObject = null)
-        {
-            subObject = subObject ?? new TestSubObject(true);
-            testObjects[index] = new TestObject(value, subObject);
-        }
-
-        internal void GivenIHaveNullTestObjects()
-        {
-            this.testObjects[0] = null;
-            this.testObjects[1] = null;
-        }
-
-        internal void ThenICanVerifyTheObjectsAreNotEqual()
-        {
-            Assert.NotEqual(this.testObjects[0], this.testObjects[1]);
-        }
-
-        #endregion Public Methods
-
-        #region Private Methods
-
-        private static string RandomString()
-        {
-            return Guid.NewGuid().ToString();
-        }
-
-        #endregion Private Methods
 
         public static void AreEqual(Equatable orig, Equatable copy)
         {
@@ -67,8 +35,55 @@ namespace OwnApt.Tests.Component.Dto
             Assert.False(orig.Equals(copy));
         }
 
+        #endregion Public Methods
+
+        #region Internal Methods
+
+        internal void GivenIHaveATestObject(int index, int value, TestSubObject subObject = null)
+        {
+            subObject = subObject ?? new TestSubObject(true);
+            testObjects[index] = new TestObject(value, subObject);
+        }
+
+        internal void GivenIHaveATestSubObject()
+        {
+            this.testSubObject = new TestSubObject(true);
+        }
+
+        internal void GivenIHaveNullTestObjects()
+        {
+            this.testObjects[0] = null;
+            this.testObjects[1] = null;
+        }
+
+        [Fact]
+        internal void ThenICanVerifyTheObjectsAreEqual()
+        {
+            Assert.Equal(this.testObjects[0], this.testObjects[1]);
+        }
+
+        internal void ThenICanVerifyTheObjectsAreNotEqual()
+        {
+            Assert.NotEqual(this.testObjects[0], this.testObjects[1]);
+        }
+
+        #endregion Internal Methods
+
+        #region Private Methods
+
+        private static string RandomString()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        #endregion Private Methods
+
+        #region Internal Classes
+
         internal class TestObject : Equatable
         {
+            #region Public Constructors
+
             public TestObject()
             {
                 this.SubObjects = new List<TestSubObject>();
@@ -81,6 +96,8 @@ namespace OwnApt.Tests.Component.Dto
                 this.Value = value;
             }
 
+            #endregion Public Constructors
+
             #region Public Properties
 
             public List<TestSubObject> SubObjects { get; set; }
@@ -91,7 +108,11 @@ namespace OwnApt.Tests.Component.Dto
 
         internal class TestSubObject : Equatable
         {
-            public TestSubObject() : this(false) { }
+            #region Public Constructors
+
+            public TestSubObject() : this(false)
+            {
+            }
 
             public TestSubObject(bool random)
             {
@@ -100,11 +121,16 @@ namespace OwnApt.Tests.Component.Dto
                     this.Strings = new string[] { RandomString(), RandomString(), RandomString() };
                 }
             }
+
+            #endregion Public Constructors
+
             #region Public Properties
 
             public string[] Strings { get; set; }
 
             #endregion Public Properties
         }
+
+        #endregion Internal Classes
     }
 }

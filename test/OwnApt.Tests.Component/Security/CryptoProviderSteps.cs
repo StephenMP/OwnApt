@@ -6,15 +6,15 @@ namespace OwnApt.Tests.Component
 {
     public class CryptoProviderSteps
     {
-        #region Fields
+        #region Private Fields
 
         private string dataToEncrypt;
         private string decryptedData;
         private string encryptedData;
 
-        #endregion Fields
+        #endregion Private Fields
 
-        #region Methods
+        #region Internal Methods
 
         internal void GivenIHaveDataToEncrypt()
         {
@@ -45,6 +45,6 @@ namespace OwnApt.Tests.Component
             this.encryptedData = CryptoProvider.Encrypt(dataToEncrypt);
         }
 
-        #endregion Methods
+        #endregion Internal Methods
     }
 }
