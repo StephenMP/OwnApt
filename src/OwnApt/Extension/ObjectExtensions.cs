@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OwnApt.Common.Extension
@@ -9,7 +10,23 @@ namespace OwnApt.Common.Extension
 
         public static int GetHashCodeSafe(this object obj)
         {
-            return obj == null ? 0 : obj.GetHashCode();
+            if (obj == null) {
+                return 0;
+            }
+            
+            if (obj is string)
+            {
+                var str = obj as string;
+                return GetHashCodeSafe(str);
+            }
+
+            if(obj is IEnumerable)
+            {
+                var enumerable = obj as IEnumerable;
+                return GetHashCodeSafe(enumerable);
+            }
+            
+            return obj.GetHashCode();
         }
 
         public static int GetHashCodeSafe(this string str)
@@ -17,9 +34,9 @@ namespace OwnApt.Common.Extension
             return string.IsNullOrWhiteSpace(str) ? 0 : str.GetHashCode();
         }
 
-        public static int GetHashCodeSafe<T>(this IEnumerable<T> enumerable)
+        public static int GetHashCodeSafe(this IEnumerable enumerable)
         {
-            if (enumerable == null || enumerable.Count() == 0)
+            if (enumerable == null || !enumerable.GetEnumerator().MoveNext())
             {
                 return 0;
             }
