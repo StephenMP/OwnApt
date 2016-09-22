@@ -67,6 +67,7 @@ namespace OwnApt.Tests.Component.Extension
         #region Public Properties
 
         public int Key { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Value { get; set; }
 
         #endregion Public Properties

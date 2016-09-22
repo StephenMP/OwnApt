@@ -6,7 +6,7 @@ namespace OwnApt.Tests.Component.Extension
     {
         #region Private Fields
 
-        private ObjectExtensionsSteps steps;
+        private readonly ObjectExtensionsSteps steps;
 
         #endregion Private Fields
 

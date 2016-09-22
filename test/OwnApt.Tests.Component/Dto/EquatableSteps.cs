@@ -120,6 +120,8 @@ namespace OwnApt.Tests.Component.Dto
                 {
                     this.Strings = new string[] { RandomString(), RandomString(), RandomString() };
                 }
+
+                this.Timestamp = DateTime.Now;
             }
 
             #endregion Public Constructors
@@ -127,6 +129,7 @@ namespace OwnApt.Tests.Component.Dto
             #region Public Properties
 
             public string[] Strings { get; set; }
+            public DateTime Timestamp { get; set; }
 
             #endregion Public Properties
         }
