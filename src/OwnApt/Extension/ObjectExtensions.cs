@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace OwnApt.Common.Extension
 {
@@ -19,6 +20,12 @@ namespace OwnApt.Common.Extension
                 return GetHashCodeSafe(str);
             }
 
+            if (obj is DateTime)
+            {
+                var dt = (DateTime)obj;
+                return GetHashCodeSafe(dt);
+            }
+
             if (obj is IEnumerable)
             {
                 var enumerable = obj as IEnumerable;
@@ -26,6 +33,17 @@ namespace OwnApt.Common.Extension
             }
 
             return obj.GetHashCode();
+        }
+
+        public static int GetHashCodeSafe(this DateTime dt)
+        {
+            return dt.Year.GetHashCode()
+                ^ dt.Month.GetHashCode()
+                ^ dt.Day.GetHashCode()
+                ^ dt.Hour.GetHashCode()
+                ^ dt.Minute.GetHashCode()
+                ^ dt.Second.GetHashCode()
+                ^ dt.Millisecond.GetHashCode();
         }
 
         public static int GetHashCodeSafe(this string str)
