@@ -37,13 +37,12 @@ namespace OwnApt.Common.Extension
 
         public static int GetHashCodeSafe(this DateTime dt)
         {
-            return dt.Date.Year.GetHashCodeSafe()
-                ^ dt.Date.Month.GetHashCodeSafe()
-                ^ dt.Date.Day.GetHashCodeSafe()
-                ^ dt.Date.Hour.GetHashCodeSafe()
-                ^ dt.Date.Minute.GetHashCodeSafe()
-                ^ dt.Date.Second.GetHashCodeSafe()
-                ^ dt.Date.Millisecond.GetHashCodeSafe();
+            return dt.Year.GetHashCodeSafe()
+                ^ dt.Month.GetHashCodeSafe()
+                ^ dt.Day.GetHashCodeSafe()
+                ^ dt.Hour.GetHashCodeSafe()
+                ^ dt.Minute.GetHashCodeSafe()
+                ^ dt.Second.GetHashCodeSafe();
         }
 
         public static int GetHashCodeSafe(this string str)
