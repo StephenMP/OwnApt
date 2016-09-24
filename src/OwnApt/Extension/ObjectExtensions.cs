@@ -20,12 +20,6 @@ namespace OwnApt.Common.Extension
                 return GetHashCodeSafe(str);
             }
 
-            if (obj is DateTime)
-            {
-                var dt = (DateTime)obj;
-                return GetHashCodeSafe(dt);
-            }
-
             if (obj is IEnumerable)
             {
                 var enumerable = obj as IEnumerable;
@@ -33,16 +27,6 @@ namespace OwnApt.Common.Extension
             }
 
             return obj.GetHashCode();
-        }
-
-        public static int GetHashCodeSafe(this DateTime dt)
-        {
-            return dt.Year.GetHashCodeSafe()
-                ^ dt.Month.GetHashCodeSafe()
-                ^ dt.Day.GetHashCodeSafe()
-                ^ dt.Hour.GetHashCodeSafe()
-                ^ dt.Minute.GetHashCodeSafe()
-                ^ dt.Second.GetHashCodeSafe();
         }
 
         public static int GetHashCodeSafe(this string str)
