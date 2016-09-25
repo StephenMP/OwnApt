@@ -26,7 +26,7 @@ namespace OwnApt.Common.Dto
         {
             var hash = 0;
 
-            foreach (var property in this.GetType().GetProperties())
+            foreach (var property in this.GetType().GetTypeInfo().DeclaredProperties)
             {
                 hash ^= property.GetValue(this).GetHashCodeSafe();
             }
