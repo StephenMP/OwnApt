@@ -6,12 +6,22 @@
 
         public static string ValueIfNullOrEmpty(this string str, string value)
         {
-            return string.IsNullOrEmpty(str) ? value : str;
+            return str.IsNullOrEmpty() ? value : str;
         }
 
         public static string ValueIfNullOrWhitespace(this string str, string value)
         {
-            return string.IsNullOrWhiteSpace(str) ? value : str;
+            return str.IsNullOrWhiteSpace() ? value : str;
+        }
+
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
+
+        public static bool IsNullOrWhiteSpace(this string str)
+        {
+            return string.IsNullOrWhiteSpace(str);
         }
 
         #endregion Public Methods

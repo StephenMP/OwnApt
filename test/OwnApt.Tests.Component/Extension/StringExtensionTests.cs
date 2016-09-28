@@ -39,6 +39,20 @@ namespace OwnApt.Tests.Component.Extension
             Assert.Equal(stringFromNullOrWhitespaceCheck, "NullOrWhitespace");
         }
 
+        [Fact]
+        public void IsNullOrEmptyOrWhitespaceTests()
+        {
+            string nullString = null;
+            var emptyString = "";
+            var whitespaceString = "         ";
+
+            Assert.True(nullString.IsNullOrEmpty());
+            Assert.True(nullString.IsNullOrWhiteSpace());
+            Assert.True(emptyString.IsNullOrEmpty());
+            Assert.True(emptyString.IsNullOrWhiteSpace());
+            Assert.True(whitespaceString.IsNullOrWhiteSpace());
+        }
+
         #endregion Public Methods
     }
 }
