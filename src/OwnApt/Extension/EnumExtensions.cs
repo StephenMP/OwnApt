@@ -10,7 +10,7 @@ namespace OwnApt.Common.Extension
 
         public static TAttribute GetAttribute<TAttribute>(this Enum value) where TAttribute : Attribute
         {
-            var fieldInfo = value.GetType().GetField(value.ToString());
+            var fieldInfo = value.GetType().GetTypeInfo().GetField(value.ToString());
             var attributes = (TAttribute[])fieldInfo.GetCustomAttributes(typeof(TAttribute), false);
             return attributes == null || attributes.Length == 0 ? null : attributes[0];
         }
