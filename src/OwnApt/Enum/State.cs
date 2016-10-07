@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace OwnApt.Common.Enum
+namespace OwnApt.Common.Enums
 {
     public enum State
     {
