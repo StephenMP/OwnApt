@@ -24,7 +24,7 @@ namespace OwnApt.Common.Security
                 var paddedEncryptedBase64String = Encoder.GetString(paddedEncryptedBytes);
                 var encryptedBase64String = paddedEncryptedBase64String.Substring(32, paddedEncryptedBase64String.Length - 64);
                 var encryptedBytes = Convert.FromBase64String(encryptedBase64String);
-                var stringBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA512);
+                var stringBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.Pkcs1);
                 var rawString = Encoder.GetString(stringBytes);
 
                 return rawString;
@@ -37,7 +37,7 @@ namespace OwnApt.Common.Security
             {
                 rsa.FromXmlString(PrivateKey);
                 var stringBytes = Encoder.GetBytes(rawString);
-                var encryptedBytes = rsa.Encrypt(stringBytes, RSAEncryptionPadding.OaepSHA512);
+                var encryptedBytes = rsa.Encrypt(stringBytes, RSAEncryptionPadding.Pkcs1);
                 var encryptedBase64String = Convert.ToBase64String(encryptedBytes);
                 var leftGarbage = Guid.NewGuid().ToString("N");
                 var rightGarbage = Guid.NewGuid().ToString("N");
